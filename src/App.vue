@@ -1,32 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <!-- content -->
+    <div id="main">
+      <!-- left sect -->
+      <section id="sidebar" class="sidebar text-center">
+        <div class="logo mt-3">
+          <img src="./assets/logo.png" alt="" width="100px">
+        </div>
+        <hr width="80%">
+        <ul>
+          <li><router-link to="/"><b-icon-folder2-open class="mr-2"></b-icon-folder2-open>Monthly Overwiew</router-link></li>
+          <li><router-link to="/about"><b-icon-folder-plus class="mr-2"></b-icon-folder-plus>Budget Plan</router-link></li>
+          <li><router-link to=""><b-icon-people class="mr-2"></b-icon-people>Financial Advise</router-link></li>
+        </ul>
+      </section>
+      <!-- right sect -->
+      <section id="content" class="content">
+        <router-view/>
+      </section>
+
     </div>
-    <router-view/>
+    <!-- footer => component -->
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped>
+  #main {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 2fr 8fr;
+  }
+  .content {
+    background-color: #fafafa;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  ul {
+    list-style-type: none;
+    text-align: left;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  li a{
+    color: #aaa;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  li a:hover {
+    color: deeppink;
+  }
 </style>
