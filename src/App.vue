@@ -9,9 +9,9 @@
         </div>
         <hr width="80%">
         <ul>
-          <li><router-link to="/"><b-icon-folder2-open class="mr-2"></b-icon-folder2-open>Monthly Overwiew</router-link></li>
-          <li><router-link to="/about"><b-icon-folder-plus class="mr-2"></b-icon-folder-plus>Budget Plan</router-link></li>
-          <li><router-link to=""><b-icon-people class="mr-2"></b-icon-people>Financial Advise</router-link></li>
+          <li><router-link to="/"><b-icon-folder2-open class="mr-2"></b-icon-folder2-open><span>Monthly Overwiew</span></router-link></li>
+          <li><router-link to="/about"><b-icon-folder-plus class="mr-2"></b-icon-folder-plus><span>Budget Plan</span></router-link></li>
+          <li><router-link to=""><b-icon-people class="mr-2"></b-icon-people><span>Financial Advise</span></router-link></li>
         </ul>
       </section>
       <!-- right sect -->
@@ -25,10 +25,40 @@
 </template>
 
 <style scoped>
-  #main {
-    display: grid;
-    min-height: 100vh;
-    grid-template-columns: 2fr 8fr;
+  @media screen and (max-width: 600px) {
+    #main {
+      display: grid;
+      min-height: 100vh;
+      grid-auto-flow: row;
+    }
+    #sidebar {
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      background: #333;
+    }
+    #sidebar div.logo, #sidebar hr {
+      display: none;
+    }
+    #sidebar ul {
+      text-align: center;
+    }
+    #sidebar ul li {
+      display: inline;
+      font-size: 2em;
+      margin: 0px 50px;
+    }
+    #sidebar ul li span{
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    #main {
+      display: grid;
+      min-height: 100vh;
+      grid-template-columns: 2fr 8fr;
+    }
   }
   .content {
     background-color: #fafafa;

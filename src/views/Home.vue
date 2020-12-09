@@ -27,7 +27,7 @@
               </tr>
               <tr>
                 <td colspan="2" class="text-left"><a href="" @click.prevent="toggleForm('incomeBtn')" id="incomeBtn" class="ml-5">&plus; Add item</a></td>
-                <td>${{ totalIncome }}</td>
+                <td class="text-success font-weight-bold">${{ totalIncome }}</td>
               </tr>
             </tbody>
           </table>
@@ -78,7 +78,7 @@
               </tr>
               <tr>
                 <td colspan="3" class="text-left"><a href="" @click.prevent="toggleForm('expenseBtn')" id="expenseBtn" class="ml-5">&plus; Add item</a></td>
-                <td>${{ totalExpenses }}</td>
+                <td class="text-danger font-weight-bold">${{ totalExpenses }}</td>
               </tr>
             </tbody>
           </table>
@@ -249,38 +249,54 @@ export default {
 </script>
 
 <style scoped>
-.main {
-  display: grid;
-  grid-template-columns: 7fr 4fr;
-  max-width: 100%;
+@media screen and (max-width: 600px) {
+  .main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+  }
+  #horizontal, .right-content {
+    display: none;
+  }
+  .left-content {
+    padding: 20px;
+  }
 }
-.left-content, .right-content {
-  padding: 20px;
+
+@media screen and (min-width: 600px) {
+  .main {
+    display: grid;
+    grid-template-columns: 7fr 4fr;
+    max-width: 100%;
+  }
+  .left-content, .right-content {
+    padding: 20px;
+  }
 }
-.box {
-  padding: 5px 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0px 2px 5px rgba(100, 100, 100, 0.2);
-}
-.table-data {
-  border-bottom: 1px solid #eee;
-}
-.badge {
-  margin: 0px 2px;
-}
-/* .right-content {
-  background: #eee;
-} */
-#right-table tbody tr {
-  font-size: 0.75em;
-  line-height: 2px;
-}
-#right-table tbody tr th {
-  color: #5f5f5f;
-}
-#right-table tbody tr td {
-  color: #a0a0a0;
-}
+  .box {
+    padding: 5px 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 2px 5px rgba(100, 100, 100, 0.2);
+  }
+  .table-data {
+    border-bottom: 1px solid #eee;
+  }
+  .badge {
+    margin: 0px 2px;
+  }
+  /* .right-content {
+    background: #eee;
+  } */
+  #right-table tbody tr {
+    font-size: 0.75em;
+    line-height: 2px;
+  }
+  #right-table tbody tr th {
+    color: #5f5f5f;
+  }
+  #right-table tbody tr td {
+    color: #a0a0a0;
+  }
 </style>
