@@ -48,6 +48,20 @@ http://localhost:8080
 - Two charts that will help you visualize your expenditure
 - Live updated charts
 - Financial advices that can help you make better financial decision
+- Available currency:
+	```txt
+	- Australia - AUD - ($)
+	- Europe - EUR - (€)
+	- India - INR - (₹)
+	- Indonesia - IDR - (Rp)
+	- Japan - JPY - (¥)
+	- Malaysia - MYR - (RM)
+	- People Republic of China - CNY - (¥)
+	- Singapore - SGD - ($)
+	- South Korea - KRW - (₩)
+	- United Kingdom - GBP - (£)
+	- United States - USD - ($)
+	```
 
 
 ## Configuration
