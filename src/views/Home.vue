@@ -3,15 +3,31 @@
     <!-- main -->
     <div class="main">
       <div class="left-content">
-        <h2 class="header">January, 2020</h2>
-        <hr>
-        <HorizontalBar class="mb-3 box"></HorizontalBar>
+        <!-- vertical chart bar -->
+        <HorizontalBar
+        class="mb-3 box"
+        :currency="currency"></HorizontalBar>
 
+        <!-- dropdown menu for selecting a currency -->
+        <div id="currency-box" class="box">
+          <div class="form-group row">
+            <label for="currency" class="col-sm-2 col-form-label">Currency</label>
+            <select v-model="currency" id="currency" class="custom-select col-sm-10">
+              <option
+                v-for="(currency,id) in currencies"
+                :key="id"
+                :value="currency.symbol">{{ currency.label }} &ndash; ({{ currency.symbol }})
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- list of all incomes that has been inserted -->
         <div id="income" class="box">
           <table class="table table-borderless text-center">
             <thead>
               <tr>
-                <th scope="col" colspan="2" class="text-left">INCOME for January</th>
+                <th scope="col" colspan="2" class="text-left">INCOME</th>
                 <th scope="col">Received</th>
                 <th scope="col">Action</th>
               </tr>
@@ -20,19 +36,20 @@
               <tr class="table-data" v-for="(inc,index) in income" :key="index">
                 <th scope="row">{{ index + 1 }}</th>
                 <td>{{ inc.name }}</td>
-                <td>${{ inc.amount }}</td>
+                <td>{{ currency }}{{ inc.amount }}</td>
                 <td>
                   <a href="" @click.prevent="removeIncome(index)" class="badge badge-danger"><b-icon-trash></b-icon-trash></a>
                 </td>
               </tr>
               <tr>
                 <td colspan="2" class="text-left"><a href="" @click.prevent="toggleForm('incomeBtn')" id="incomeBtn" class="ml-5">&plus; Add item</a></td>
-                <td class="text-success font-weight-bold">${{ totalIncome }}</td>
+                <td class="text-success font-weight-bold">{{ currency }}{{ totalIncome }}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
+        <!-- a form for adding new income to the list -->
         <div v-if="isAddIncomeClicked" id="add-income" class="add-income box pt-3 pb-3">
           <h5>New Income</h5>
           <hr>
@@ -44,7 +61,7 @@
               <div class="form-group col-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
+                    <div class="input-group-text">{{ currency }}</div>
                   </div>
                   <input type="number" v-model="newIncomeAmount" name="incomeAmount" id="incomeAmount" class="form-control" placeholder="Amount">
                 </div>
@@ -56,11 +73,12 @@
           </form>
         </div>
 
+        <!-- list of all expenses that has been inserted -->
         <div id="expense" class="box">
           <table class="table table-borderless text-center">
             <thead>
               <tr>
-                <th scope="col" colspan="2" class="text-left">EXPENSES for January</th>
+                <th scope="col" colspan="2" class="text-left">EXPENSES</th>
                 <th scope="col">Category</th>
                 <th scope="col" colspan="2">Spent</th>
                 <th scope="col" colspan="2">Action</th>
@@ -71,19 +89,20 @@
                 <th scope="row">{{ index + 1 }}</th>
                 <td>{{ expense.name }}</td>
                 <td>{{ expense.category }}</td>
-                <td>${{ expense.amount }}</td>
+                <td>{{ currency }}{{ expense.amount }}</td>
                 <td colspan="2">
                   <a href="" @click.prevent="removeExpense(index)" class="badge badge-danger"><b-icon-trash></b-icon-trash></a>
                 </td>
               </tr>
               <tr>
                 <td colspan="3" class="text-left"><a href="" @click.prevent="toggleForm('expenseBtn')" id="expenseBtn" class="ml-5">&plus; Add item</a></td>
-                <td class="text-danger font-weight-bold">${{ totalExpenses }}</td>
+                <td class="text-danger font-weight-bold">{{ currency }}{{ totalExpenses }}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
+        <!-- a form for adding new expense to the list -->
         <div v-if="isAddExpenseClicked === true" id="add-expense" class="add-expense box pt-3 pb-3">
           <h5>New Expense</h5>
           <hr>
@@ -112,7 +131,7 @@
               <div class="form-group col-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
+                    <div class="input-group-text">{{ currency }}</div>
                   </div>
                   <input type="number" v-model="newExpenseAmount" name="spentAmount" id="spentAmount" class="form-control" placeholder="Amount">
                 </div>
@@ -130,16 +149,18 @@
 
       <div class="right-content">
         <PieChart></PieChart>
+
+        <!-- money allocation on each category -->
         <table id="right-table" class="table mt-3">
           <tbody>
             <tr v-for="(el,id) in datasets" :key="id">
               <th scope="row">{{ el.category }}</th>
-              <td>${{ el.amount }}</td>
+              <td>{{ currency }}{{ el.amount }}</td>
               <td>({{ el.ratio }}%)</td>
             </tr>
             <tr>
               <th scope="row">Total</th>
-              <td>${{ totalExpenses }}</td>
+              <td>{{ currency }}{{ totalExpenses }}</td>
               <td>{{ incomeToExpenseRatio }}%</td>
             </tr>
           </tbody>
@@ -161,6 +182,7 @@ export default {
   },
   data () {
     return {
+      currency: '$',
       isAddIncomeClicked: false,
       isAddExpenseClicked: false,
       newIncomeName: null,
@@ -168,7 +190,53 @@ export default {
       newExpenseName: null,
       newExpenseCategory: null,
       newExpenseAmount: null,
-      newExpenseDesc: null
+      newExpenseDesc: null,
+      currencies: [
+        {
+          label: 'USD',
+          symbol: '$'
+        },
+        {
+          label: 'EUR',
+          symbol: '€'
+        },
+        {
+          label: 'GBP',
+          symbol: '£'
+        },
+        {
+          label: 'JPY',
+          symbol: '¥'
+        },
+        {
+          label: 'KRW',
+          symbol: '₩'
+        },
+        {
+          label: 'CNY',
+          symbol: '¥'
+        },
+        {
+          label: 'INR',
+          symbol: '₹'
+        },
+        {
+          label: 'SGD',
+          symbol: '$'
+        },
+        {
+          label: 'IDR',
+          symbol: 'Rp'
+        },
+        {
+          label: 'MYR',
+          symbol: 'RM'
+        },
+        {
+          label: 'AUD',
+          symbol: '$'
+        }
+      ]
     }
   },
   computed: {
@@ -181,6 +249,11 @@ export default {
       'balance',
       'incomeToExpenseRatio'
     ]),
+    /**
+     * creating datasets which contain categories,
+     * total amount of money spent on each category,
+     * and ratio between amount spent on each category and total expenses + balance
+     */
     datasets: function () {
       const costs = []
       this.categories.forEach(category => {
@@ -204,6 +277,9 @@ export default {
       'deleteIncome',
       'deleteExpense'
     ]),
+    /**
+     * insert new record from the form to the income list
+     */
     submitIncome () {
       if (this.newIncomeName && this.newIncomeAmount) {
         this.addIncome({
@@ -216,6 +292,9 @@ export default {
         console.log('ERROR: Income name and amount can\'t be empty.')
       }
     },
+    /**
+     * insert new record from the form to the expense list
+     */
     submitExpense () {
       if (this.newExpenseName && this.newExpenseCategory && this.newExpenseAmount) {
         // actions
@@ -234,12 +313,21 @@ export default {
         console.log('ERROR: Expense fields cannot be empty.')
       }
     },
+    /**
+     * remove a record from the income list
+     */
     removeIncome (id) {
       this.deleteIncome(id)
     },
+    /**
+     * remove a record from the expense list
+     */
     removeExpense (id) {
       this.deleteExpense(id)
     },
+    /**
+     * show or hide form when '+add item' button is pressed
+     */
     toggleForm (id) {
       if (id === 'incomeBtn') this.isAddIncomeClicked = !this.isAddIncomeClicked
       if (id === 'expenseBtn') this.isAddExpenseClicked = !this.isAddExpenseClicked

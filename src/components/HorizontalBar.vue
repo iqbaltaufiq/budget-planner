@@ -8,6 +8,9 @@ import Chart from 'chart.js'
 import { mapGetters } from 'vuex'
 export default {
   name: 'horizontal',
+  props: {
+    currency: String
+  },
   data () {
     return {
       barChart: null
@@ -30,60 +33,32 @@ export default {
           }
         })
         amount.push(sum)
-        // category scope
       })
       return amount
     }
   },
   mounted: function () {
     var ctx = document.getElementById('barChart').getContext('2d')
-    // eslint-disable-next-line no-unused-vars
     this.barChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: [...this.categories],
         datasets: [{
-          label: '# of Money Spent',
+          label: `${this.currency} of Money Spent`,
           data: [...this.amount],
           barPercentage: 1,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)',
-            'rgba(255, 159, 64, 0.7)',
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)'
-          ],
-          hoverBackgroundColor: [
-            'rgba(255, 99, 132, 0.9)',
-            'rgba(54, 162, 235, 0.9)',
-            'rgba(255, 206, 86, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
-            'rgba(153, 102, 255, 0.9)',
-            'rgba(255, 159, 64, 0.9)',
-            'rgba(255, 99, 132, 0.9)',
-            'rgba(54, 162, 235, 0.9)',
-            'rgba(255, 206, 86, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
-            'rgba(153, 102, 255, 0.9)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 0.9)',
-            'rgba(54, 162, 235, 0.9)',
-            'rgba(255, 206, 86, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
-            'rgba(153, 102, 255, 0.9)',
-            'rgba(255, 159, 64, 0.9)',
-            'rgba(255, 99, 132, 0.9)',
-            'rgba(54, 162, 235, 0.9)',
-            'rgba(255, 206, 86, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
-            'rgba(153, 102, 255, 0.9)'
+            '#fd3a69',
+            '#706897',
+            '#ec524b',
+            '#fecd1a',
+            '#19d3da',
+            '#ff9a76',
+            '#9088d4',
+            '#81b214',
+            '#799351',
+            '#fcf876',
+            '#07689f'
           ],
           borderWidth: 1
         }]
@@ -109,6 +84,13 @@ export default {
       immediate: false,
       handler () {
         this.barChart.config.data.datasets[0].data = this.amount
+        this.barChart.update()
+      }
+    },
+    currency: {
+      immediate: false,
+      handler () {
+        this.barChart.config.data.datasets[0].label = `${this.currency} of Money Spent`
         this.barChart.update()
       }
     }

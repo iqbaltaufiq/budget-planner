@@ -31,7 +31,6 @@ export default {
           }
         })
         amount.push(sum)
-        // category scope
       })
       return amount
     }
@@ -41,36 +40,36 @@ export default {
     var config = {
       type: 'doughnut',
       data: {
-        labels: ['Aftercut', ...this.categories],
+        labels: ['Balance', ...this.categories],
         datasets: [{
           data: [this.balance, ...this.amount],
           backgroundColor: [
-            'rgba(175, 175, 175, 0.7)',
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)',
-            'rgba(255, 159, 64, 0.7)',
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)'
+            '#ccc',
+            '#fd3a69',
+            '#706897',
+            '#ec524b',
+            '#fecd1a',
+            '#19d3da',
+            '#ff9a76',
+            '#9088d4',
+            '#81b214',
+            '#799351',
+            '#fcf876',
+            '#07689f'
           ],
           borderColor: [
-            'rgba(175, 175, 175, 0.7)',
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)',
-            'rgba(255, 159, 64, 0.7)',
-            'rgba(255, 99, 132, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)',
-            'rgba(153, 102, 255, 0.7)'
+            '#ccc',
+            '#fd3a69',
+            '#706897',
+            '#ec524b',
+            '#fecd1a',
+            '#19d3da',
+            '#ff9a76',
+            '#9088d4',
+            '#81b214',
+            '#799351',
+            '#fcf876',
+            '#07689f'
           ],
           borderWidth: 1,
           weight: 1
@@ -86,6 +85,7 @@ export default {
       }
     }
 
+    // create a piechart object
     this.pieChart = new Chart(ctx, config)
   },
   watch: {
@@ -106,9 +106,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#pie {
-  position: relative;
-}
-</style>

@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <!-- content -->
     <div id="main">
-      <!-- left sect -->
+      <!-- left section -->
       <section id="sidebar" class="sidebar text-center">
         <div class="logo mt-3">
           <img src="./assets/logo.png" alt="" width="100px">
@@ -10,19 +9,29 @@
         <hr width="80%">
         <ul>
           <li><router-link to="/"><b-icon-folder2-open class="mr-2"></b-icon-folder2-open><span>Monthly Overwiew</span></router-link></li>
-          <li><router-link to="/about"><b-icon-folder-plus class="mr-2"></b-icon-folder-plus><span>Budget Plan</span></router-link></li>
-          <li><router-link to=""><b-icon-people class="mr-2"></b-icon-people><span>Financial Advise</span></router-link></li>
+          <li><router-link to=""><b-icon-folder-plus class="mr-2"></b-icon-folder-plus><span>Budget Plan</span></router-link></li>
+          <li><router-link to="/advice"><b-icon-people class="mr-2"></b-icon-people><span>Financial Advice</span></router-link></li>
         </ul>
       </section>
-      <!-- right sect -->
+      <!-- right section -->
       <section id="content" class="content">
         <router-view/>
+        <!-- footer => component -->
+        <Footer></Footer>
       </section>
-
     </div>
-    <!-- footer => component -->
   </div>
 </template>
+
+<script>
+import Footer from '@/components/Footer.vue'
+export default {
+  name: 'app',
+  components: {
+    Footer
+  }
+}
+</script>
 
 <style scoped>
   @media screen and (max-width: 600px) {
@@ -36,6 +45,7 @@
       bottom: 0;
       width: 100vw;
       background: #333;
+      z-index: 10;
     }
     #sidebar div.logo, #sidebar hr {
       display: none;
@@ -50,6 +60,9 @@
     }
     #sidebar ul li span{
       display: none;
+    }
+    #footer {
+      padding-bottom: 75px;
     }
   }
 
@@ -78,6 +91,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   li a:hover {
-    color: deeppink;
+    color: steelblue;
   }
 </style>
