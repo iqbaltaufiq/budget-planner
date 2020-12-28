@@ -79,7 +79,7 @@ export default {
 - ["Difference Between Needs and Wants"](https://keydifferences.com/difference-between-needs-and-wants.html)
 
 ## Screenshots
-![screenshot01](https://i.imgur.com/JllQlYh.png)
+![screenshot01](./src/assets/preview/budget-planner.png)
 
 ## License
 MIT License
